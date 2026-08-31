@@ -1,0 +1,308 @@
+🐍 Topic 8: Exception Handling ⭐⭐⭐
+
+Exception handling is used to prevent your program from crashing unexpectedly when an error occurs.
+
+1. What is an Exception?
+
+For example:
+
+a = 10
+b = 0
+
+print(a / b)
+
+This causes:
+
+ZeroDivisionError
+
+Without exception handling, the program stops.
+
+With exception handling, we can handle the error gracefully.
+
+2. try and except ⭐⭐⭐
+
+Basic syntax:
+
+try:
+    # Code that might cause an error
+except:
+    # Code that handles the error
+
+Example:
+
+try:
+    a = 10
+    b = 0
+    print(a / b)
+
+except:
+    print("Something went wrong")
+
+Output:
+
+Something went wrong
+3. Handling Specific Exceptions ⭐⭐⭐
+
+Instead of using a general except, it's better to handle specific errors.
+
+try:
+    a = 10
+    b = 0
+
+    print(a / b)
+
+except ZeroDivisionError:
+    print("You cannot divide by zero")
+
+This is the preferred approach.
+
+4. Common Python Exceptions
+
+You should know these:
+
+Exception	When it happens
+ZeroDivisionError	Dividing by zero
+ValueError	Invalid value
+TypeError	Wrong data type operation
+IndexError	Invalid list/string index
+KeyError	Dictionary key doesn't exist
+NameError	Variable doesn't exist
+FileNotFoundError	File doesn't exist
+
+You don't need to memorize every exception—just understand the common ones.
+
+5. Example: User Input ⭐
+try:
+    age = int(input("Enter your age: "))
+    print(age)
+
+except ValueError:
+    print("Please enter a valid number")
+
+If the user enters:
+
+hello
+
+Instead of crashing, the program displays:
+
+Please enter a valid number
+6. Multiple except Blocks ⭐⭐
+
+You can handle different errors differently.
+
+try:
+    number = int(input("Enter a number: "))
+    result = 100 / number
+
+except ValueError:
+    print("Please enter a valid integer")
+
+except ZeroDivisionError:
+    print("Number cannot be zero")
+
+This is very common in real applications.
+
+7. Handling Multiple Exceptions Together
+
+You can also do:
+
+try:
+    number = int(input("Enter a number: "))
+    result = 100 / number
+
+except (ValueError, ZeroDivisionError):
+    print("Invalid input")
+
+Use this when you want the same handling for multiple errors.
+
+8. else ⭐⭐
+
+The else block runs only when no exception occurs.
+
+try:
+    number = int(input("Enter a number: "))
+
+except ValueError:
+    print("Invalid input")
+
+else:
+    print("You entered:", number)
+
+So:
+
+try     → Try the code
+except  → Runs if error happens
+else    → Runs if NO error happens
+9. finally ⭐⭐⭐
+
+The finally block runs whether an exception happens or not.
+
+try:
+    number = int(input("Enter a number: "))
+    result = 100 / number
+
+except ValueError:
+    print("Invalid number")
+
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+
+finally:
+    print("Program execution completed")
+
+Even if an error occurs, finally runs.
+
+Why is finally useful?
+
+It's commonly used for cleanup operations, such as:
+
+Closing files
+Closing database connections
+Releasing resources
+⭐ Complete Structure
+try:
+    # Risky code
+
+except SomeError:
+    # Handle error
+
+else:
+    # Runs if no error
+
+finally:
+    # Always runs
+
+Not every program needs all four blocks.
+
+10. Getting the Error Message ⭐
+
+You can store the exception:
+
+try:
+    number = int("hello")
+
+except ValueError as e:
+    print("Error:", e)
+
+Example output:
+
+Error: invalid literal for int() with base 10: 'hello'
+
+Here:
+
+e
+
+contains information about the exception.
+
+11. raise ⭐⭐⭐
+
+You can manually create an exception using raise.
+
+Example:
+
+age = -5
+
+if age < 0:
+    raise ValueError("Age cannot be negative")
+
+This is useful when you want to enforce your own rules.
+
+Another example:
+
+def withdraw(balance, amount):
+    if amount > balance:
+        raise ValueError("Insufficient balance")
+
+    return balance - amount
+
+This is closer to how validation works in real applications.
+
+🧠 Java vs Python Comparison
+Java	Python
+try	try
+catch	except
+finally	finally
+throw	raise
+Exception object	Exception as e
+
+So the concept should feel very familiar to you.
+
+🔥 Important Best Practice
+
+Avoid doing this:
+
+try:
+    # lots and lots of code
+except:
+    print("Error")
+
+Instead, keep the try block focused and catch specific exceptions:
+
+try:
+    number = int(input())
+
+except ValueError:
+    print("Invalid number")
+
+This makes debugging much easier.
+
+📝 Practice Questions
+Q1 — Division
+
+Take two numbers from the user and divide them.
+
+Handle:
+
+Division by zero
+Invalid number input
+Q2 — List Index
+numbers = [10, 20, 30]
+
+Ask the user for an index and safely print the element.
+
+Handle IndexError.
+
+Q3 — Dictionary
+student = {
+    "name": "Dnyanesh",
+    "age": 22
+}
+
+Ask the user for a key and safely print its value.
+
+Handle the case where the key doesn't exist.
+
+Q4 ⭐
+
+Create a function:
+
+withdraw(balance, amount)
+
+If amount > balance, raise:
+
+Insufficient balance
+
+Otherwise, return the remaining balance.
+
+Q5 ⭐⭐
+
+Create a program that keeps asking the user to enter a number until they enter a valid integer.
+
+Use:
+
+while True
+
+with:
+
+try
+except
+break
+🎯 What You Must Remember
+
+The most important concepts are:
+
+try       → risky code
+except    → handle error
+else      → no error occurred
+finally   → always runs
+raise     → manually create an exception
