@@ -1,6 +1,6 @@
 #------------------Topic 3: Tuples------------------------
 
-# If a Python list is like a flexible ArrayList, a tuple is similar to a 
+ 
 # collection whose contents you generally don't want to change.
 
 #-----creating a Tuple-------------------
