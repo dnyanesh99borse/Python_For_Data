@@ -1,0 +1,529 @@
+🐍 Python OOP — Complete Short & Powerful Notes
+1. Class and Object
+Class
+
+A blueprint for creating objects.
+
+class Student:
+    pass
+Object
+s1 = Student()
+2. __init__() Constructor ⭐⭐⭐
+
+__init__() is automatically called when an object is created.
+
+class Student:
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+Creating an object:
+
+s1 = Student("Dnyanesh", 22)
+
+print(s1.name)
+print(s1.age)
+Java comparison
+Student(String name, int age) {
+    this.name = name;
+    this.age = age;
+}
+
+Python:
+
+def __init__(self, name, age):
+    self.name = name
+    self.age = age
+3. self ⭐⭐⭐⭐⭐
+
+self refers to the current object.
+
+class Student:
+
+    def __init__(self, name):
+        self.name = name
+
+When:
+
+s1 = Student("Dnyanesh")
+
+Then:
+
+self.name
+
+belongs specifically to s1.
+
+Java equivalent:
+this.name
+Remember:
+
+self in Python ≈ this in Java
+
+⚠️ Unlike Java, Python explicitly writes self as the first parameter of instance methods.
+
+4. Instance Variables
+
+Variables belonging to each individual object.
+
+class Student:
+
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+s1 = Student("Dnyanesh", 22)
+s2 = Student("Rahul", 21)
+
+Each object has its own values.
+
+5. Instance Methods
+
+Methods that work with object data.
+
+class Student:
+
+    def __init__(self, name):
+        self.name = name
+
+    def display(self):
+        print(self.name)
+
+Calling:
+
+s1 = Student("Dnyanesh")
+s1.display()
+
+Output:
+
+Dnyanesh
+6. Class Variables ⭐⭐⭐
+
+A class variable is shared by all objects.
+
+class Student:
+
+    college = "NMIMS"
+
+    def __init__(self, name):
+        self.name = name
+s1 = Student("Dnyanesh")
+s2 = Student("Rahul")
+
+print(s1.college)
+print(s2.college)
+Difference
+Instance Variable	Class Variable
+Belongs to object	Belongs to class
+Different for each object	Shared by all objects
+self.name	Student.college
+7. Class Methods ⭐⭐
+
+Class methods work with class-level data.
+
+Use:
+
+@classmethod
+
+Example:
+
+class Student:
+
+    college = "NMIMS"
+
+    @classmethod
+    def change_college(cls, new_college):
+        cls.college = new_college
+
+Here:
+
+cls refers to the class.
+
+Remember:
+self → current object
+cls  → current class
+8. Static Methods ⭐⭐
+
+Static methods don't need object data or class data.
+
+class Calculator:
+
+    @staticmethod
+    def add(a, b):
+        return a + b
+
+Call:
+
+print(Calculator.add(10, 20))
+Quick comparison
+Method	First parameter
+Instance Method	self
+Class Method	cls
+Static Method	Nothing special
+9. Encapsulation ⭐⭐⭐
+
+Encapsulation means:
+
+Wrapping data and methods together and controlling access to data.
+
+Python doesn't enforce access modifiers exactly like Java.
+
+Convention for protected:
+self._name
+Convention for private:
+self.__name
+
+Example:
+
+class Student:
+
+    def __init__(self, name):
+        self.__name = name
+
+Direct access:
+
+print(s1.__name)
+
+❌ Error.
+
+Python uses name mangling for double underscore variables.
+
+10. Getter and Setter ⭐⭐⭐
+
+Python uses @property.
+
+class Student:
+
+    def __init__(self, age):
+        self._age = age
+
+    @property
+    def age(self):
+        return self._age
+
+Setter:
+
+    @age.setter
+    def age(self, value):
+        if value >= 0:
+            self._age = value
+
+Usage:
+
+s1.age = 22
+print(s1.age)
+
+🔥 This is Python's clean way of implementing controlled access.
+
+11. Inheritance ⭐⭐⭐⭐⭐
+
+Inheritance allows one class to acquire properties and methods of another class.
+
+Parent Class
+class Animal:
+
+    def eat(self):
+        print("Eating")
+Child Class
+class Dog(Animal):
+
+    def bark(self):
+        print("Barking")
+
+Now:
+
+dog = Dog()
+
+dog.eat()
+dog.bark()
+
+Output:
+
+Eating
+Barking
+12. Types of Inheritance
+Single Inheritance
+A → B
+Multilevel Inheritance
+A → B → C
+Multiple Inheritance ⭐
+class A:
+    pass
+
+class B:
+    pass
+
+class C(A, B):
+    pass
+
+Python supports multiple inheritance.
+
+Hierarchical Inheritance
+      A
+     / \
+    B   C
+13. super() ⭐⭐⭐
+
+Used to call the parent class constructor or methods.
+
+class Animal:
+
+    def __init__(self, name):
+        self.name = name
+
+Child:
+
+class Dog(Animal):
+
+    def __init__(self, name, breed):
+        super().__init__(name)
+        self.breed = breed
+
+This is equivalent to Java's:
+
+super(...)
+14. Method Overriding ⭐⭐⭐
+
+When a child class provides its own version of a parent method.
+
+class Animal:
+
+    def sound(self):
+        print("Animal sound")
+
+Child:
+
+class Dog(Animal):
+
+    def sound(self):
+        print("Bark")
+dog = Dog()
+dog.sound()
+
+Output:
+
+Bark
+
+This is Runtime Polymorphism.
+
+15. Polymorphism ⭐⭐⭐⭐⭐
+
+Polymorphism means:
+
+One interface/method name, different behavior.
+
+Example:
+
+class Dog:
+    def sound(self):
+        print("Bark")
+
+
+class Cat:
+    def sound(self):
+        print("Meow")
+animals = [Dog(), Cat()]
+
+for animal in animals:
+    animal.sound()
+
+Output:
+
+Bark
+Meow
+16. Method Overloading in Python ⚠️
+
+Python does not support traditional method overloading like Java.
+
+Java:
+
+add(int a, int b)
+add(int a, int b, int c)
+
+In Python, the second definition replaces the first.
+
+Instead, we usually use:
+
+Default arguments
+def add(a, b, c=0):
+    return a + b + c
+
+Or:
+
+*args
+17. Abstraction ⭐⭐⭐
+
+Abstraction means:
+
+Showing only essential features and hiding implementation details.
+
+Python uses the abc module.
+
+from abc import ABC, abstractmethod
+
+Example:
+
+from abc import ABC, abstractmethod
+
+class Animal(ABC):
+
+    @abstractmethod
+    def sound(self):
+        pass
+
+Child class:
+
+class Dog(Animal):
+
+    def sound(self):
+        print("Bark")
+
+Now the child must implement sound().
+
+18. Abstract Class
+
+You generally cannot create an object of an abstract class containing required abstract methods.
+
+animal = Animal()
+
+❌ Not allowed in this example.
+
+Abstract classes provide a common structure/contract for child classes.
+
+19. Special / Magic / Dunder Methods ⭐⭐⭐
+
+Python has special methods with double underscores:
+
+__init__
+__str__
+__len__
+
+They are often called:
+
+Dunder methods
+(Double UNDERscore methods)
+
+__str__()
+
+Controls how an object is displayed when printed.
+
+class Student:
+
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return f"Student: {self.name}"
+s1 = Student("Dnyanesh")
+
+print(s1)
+
+Output:
+
+Student: Dnyanesh
+🔥 Complete OOP Example
+
+This example combines the major concepts:
+
+class Person:
+
+    # Class variable
+    species = "Human"
+
+    def __init__(self, name, age):
+        # Instance variables
+        self.name = name
+        self.age = age
+
+    # Instance method
+    def introduce(self):
+        print(f"My name is {self.name}")
+
+
+class Student(Person):
+
+    def __init__(self, name, age, course):
+
+        # Parent constructor
+        super().__init__(name, age)
+
+        self.course = course
+
+    # Method overriding
+    def introduce(self):
+        print(
+            f"My name is {self.name} and I study {self.course}"
+        )
+
+
+student1 = Student(
+    "Dnyanesh",
+    22,
+    "Computer Science"
+)
+
+student1.introduce()
+
+print(student1.species)
+
+This covers:
+
+✅ Class
+✅ Object
+✅ Constructor
+✅ self
+✅ Instance variables
+✅ Class variables
+✅ Inheritance
+✅ super()
+✅ Method overriding
+✅ Polymorphism
+
+🎯 Python OOP Cheat Sheet
+class           → Create a class
+object          → Instance of a class
+
+__init__()      → Constructor
+self            → Current object
+cls             → Current class
+
+Instance variable → Belongs to object
+Class variable    → Shared by class
+
+Instance method → Uses self
+@classmethod    → Uses cls
+@staticmethod   → Independent utility method
+
+Inheritance     → Reuse parent class
+super()         → Access parent functionality
+
+Encapsulation   → Control data access
+_name           → Protected convention
+__name          → Private/name mangling
+
+Polymorphism    → Same interface, different behavior
+Overriding      → Child changes parent method
+
+Abstraction     → Hide implementation details
+ABC             → Abstract Base Class
+@abstractmethod → Required child implementation
+
+__str__()       → Object string representation
+🏆 What YOU need to know for placements
+
+Since you're already strong in Java, focus especially on the Python differences:
+
+⭐ Must Know
+class and object
+self
+__init__
+Instance vs class variables
+Instance/class/static methods
+Inheritance
+super()
+Method overriding
+Polymorphism
+Encapsulation (_ and __)
+Abstraction using ABC
+Python doesn't support traditional method overloading
+
+That's more than enough Python OOP knowledge for placement interviews. 🔥
