@@ -431,3 +431,188 @@ df.nlargest(2, "Salary")
 df.nsmallest(2, "Salary")
 
 
+
+
+#========== groupby() & Aggregation ==========
+# groupby() is used when you want to group data by a category and perform calculations on each group.
+
+# For example:
+# Average salary by department
+# Total sales by region
+# Number of employees in each department
+# Maximum salary in each department
+
+#Demo Dataset
+import pandas as pd
+df = pd.DataFrame({
+    "Name": ["Amit", "Rahul", "Sneha", "Priya", "Rohan"],
+    "Department": ["IT", "HR", "IT", "Finance", "HR"],
+    "Salary": [45000, 40000, 50000, 55000, 48000]
+})
+
+print(df,"\n")
+
+#==== Basic groupby() ====
+#Find Average Salary by Department
+avgsal = df.groupby("Department")["Salary"].mean()
+print(avgsal)
+
+
+#==== Other Aggregations ====
+#Total Salary by Department
+totalsaldept = df.groupby("Department")["Salary"].sum()
+print(totalsaldept)
+
+# Maximum Salary by Department
+df.groupby("Department")["Salary"].max()
+
+# Minimum Salary
+df.groupby("Department")["Salary"].min()
+
+# Number of Employees
+df.groupby("Department")["Name"].count()
+
+
+
+#=====rouping by Multiple Columns=====
+# Suppose your dataset has:
+# Department
+# City
+# Salary
+
+# you can group by both:
+df.groupby(
+    ["Department", "City"]
+)["Salary"].mean()
+
+#This gives Average Salary for each Department + City combination
+
+
+
+#============ MERGING AND JOINING DATAFRAMES ==============
+#SIMILAR TO SQL JOINS
+
+#In real projects, data is often stored in multiple tables/files
+#eg:
+#Employee Data
+import pandas as pd
+df1 = pd.DataFrame({
+    "Employee_ID": [1, 2, 3, 4],
+    "Name": ["Amit", "Rahul", "Sneha", "Priya"],
+    "Department_ID": [101, 102, 101, 103]
+})
+
+#Department Data
+df2 = pd.DataFrame({
+    "Department_ID": [101, 102, 103],
+    "Department": ["IT", "HR", "Finance"]
+})
+
+#we want to combine them using: pd.merge()
+
+#=== Basic Merge ===
+result = pd.merge(
+    df1,
+    df2,
+    on = "Department_ID"
+)
+
+print(result)
+
+
+
+#=============== TYPES OF JOINS ================
+
+# These are important to understand.
+
+# INNER JOIN
+# pd.merge(df1, df2, on="Department_ID", how="inner")
+
+# Keeps only matching records from both DataFrames.
+
+# LEFT JOIN
+# pd.merge(df1, df2, on="Department_ID", how="left")
+
+# Keeps all records from the left DataFrame (df1).
+
+# If no matching data exists in df2, Pandas puts NaN.
+
+# RIGHT JOIN
+# pd.merge(df1, df2, on="Department_ID", how="right")
+
+# Keeps all records from the right DataFrame.
+
+# OUTER JOIN
+# pd.merge(df1, df2, on="Department_ID", how="outer")
+
+# Keeps all records from both DataFrames.
+
+# Missing matches become NaN.
+
+# Easy Join Memory Trick
+# INNER → Only common records
+
+# LEFT  → Everything from left
+
+# RIGHT → Everything from right
+
+# OUTER → Everything from both
+# Most Important Real-World Pattern
+
+# Usually, you'll use:
+
+# pd.merge(
+#     df1,
+#     df2,
+#     on="Common_Column",
+#     how="left"
+# )
+
+# Why?
+
+# Because often you have a main dataset, and you want to add information from another dataset without losing rows from your main dataset.
+
+# What About join()?
+
+# Pandas also has:
+
+# df1.join(df2)
+
+# But for your current level:
+# Focus mainly on pd.merge().
+
+# It is clearer, more commonly used, and easier to understand.
+
+# Quick Practice
+# Create these:
+
+# employees = pd.DataFrame({
+#     "ID": [1, 2, 3],
+#     "Name": ["Amit", "Rahul", "Sneha"],
+#     "Dept_ID": [101, 102, 103]
+# })
+
+# departments = pd.DataFrame({
+#     "Dept_ID": [101, 102, 104],
+#     "Department": ["IT", "HR", "Finance"]
+# })
+
+# Try:
+# 1. Inner Merge
+# pd.merge(employees, departments, on="Dept_ID", how="inner")
+# 2. Left Merge
+# pd.merge(employees, departments, on="Dept_ID", how="left")
+# 3. Outer Merge
+# pd.merge(employees, departments, on="Dept_ID", how="outer")
+
+# Observe carefully which rows are kept and where NaN appears. 🔥
+
+# Must Remember for Interviews
+# Pandas merge() combines DataFrames using a common column, similar to SQL joins. The main join types are inner, left, right, and outer joins.
+
+
+
+
+
+
+
