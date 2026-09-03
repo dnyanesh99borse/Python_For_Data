@@ -614,5 +614,164 @@ print(result)
 
 
 
+#======================= DUPLICATES + BASIC DATA CLEANING ==========================
+# Real-world datasets are often messy. Common problems include:
+
+# Duplicate rows
+# Missing values
+# Incorrect column names
+# Extra spaces in text
+# Wrong data types
+
+# Let's learn the important basics.
 
 
+#===== DETECT DUPLICATE ROWS ======
+import pandas as pd
+df = pd.DataFrame({
+    "Name": ["Amit", "Rahul", "Sneha", "Amit"],
+    "Age": [22, 24, 21, 22],
+    "Salary": [45000, 40000, 50000, 45000]
+})
+print(df)
+
+#check duplicates:
+print(df.duplicated())
+
+#count duplicates
+countdupli = df.duplicated().sum()
+print(countdupli)
+
+
+#====== REMOVE DUPLICATES =======
+df = df.drop_duplicates()
+print(df)  #now duplicate rows are removed
+
+
+#====== CLEANING COLUMN NAMES ======
+#Real datasets may have messy column names:
+# " Employee Name "
+# "Salary "
+# " DEPARTMENT"
+
+#Clean them:
+df.columns = df.columns.str.strip()
+print(df.columns)
+
+#convert to Lowercase
+df.columns = df.columns.str.lower()
+
+#Replace spaces with underscores:
+df.columns = df.columns.str.replace(" ","_")
+
+# Professional combination
+df.columns = (
+    df.columns
+    .str.strip()
+    .str.lower()
+    .str.replace(" ", "_")
+)
+
+print(df)
+
+# Example:
+# Employee Name
+# becomes: 
+# employee_name
+
+
+#======== CLEANING TEXT VALUES ============
+#Sometimes values contain unnecessary spaces.
+# example:
+# " IT "
+# "HR "
+# " Finance"
+
+#clean a column
+df["Department"] = df["Department"].str.strip()
+
+#convert to lowercase
+df["Department"] = df["Department"].str.lower()
+
+#==== Replacing Values =====
+# suppose: 
+# Male --> M
+# Female --> F
+
+df["Gender"] = df["Gender"].replace({
+    "Male":"M",
+    "Female":"F"
+})
+
+df["Status"] = df["Status"].replace({
+    "Yes": True,
+    "No" : False
+})
+
+
+#===== CHANGING DATA TYPES =====
+#Sometimes numerical data is stroed as text
+# eg:
+df["Age"] = df["Age"].astype(int)
+# or
+df["Salary"] = df["Salary"].astype(float)
+
+print(df.types)
+
+
+Basic Data Cleaning Workflow 🔥
+
+When you receive a real dataset:
+
+# Understand dataset
+df.info()
+
+# Missing values
+df.isnull().sum()
+
+# Duplicates
+df.duplicated().sum()
+
+# Clean column names
+df.columns = (
+    df.columns
+    .str.strip()
+    .str.lower()
+    .str.replace(" ", "_")
+)
+
+# Remove duplicates
+df = df.drop_duplicates()
+
+
+# This is a very good fresher-level data cleaning workflow.
+
+# Must Remember
+# df.duplicated().sum()
+
+# df.drop_duplicates()
+
+# df.columns.str.strip()
+
+# df["column"].str.strip()
+
+# df.replace()
+
+# df.astype()
+# Quick Practice
+
+# Try this:
+
+# df = pd.DataFrame({
+#     " Name ": [" Amit", "Rahul ", "Sneha", " Amit"],
+#     "Department": [" IT", "HR ", "IT", " IT"],
+#     "Salary": [45000, 40000, 50000, 45000]
+# })
+
+# Perform:
+# Clean column names.
+# Remove extra spaces from Name.
+# Remove extra spaces from Department.
+# Check duplicate rows.
+# Remove duplicates.
+# Print the final cleaned DataFrame.
